@@ -1,5 +1,5 @@
-import Home from "./home/home";
-import News from "./news";
+import Home from "./Home/Home";
+import News from "./News/News";
 
 const routes = [
   {

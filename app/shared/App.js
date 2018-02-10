@@ -1,7 +1,14 @@
 import React, { Component } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
+
 import routes from "../routes";
-import "./App.css";
+import NewRoutes from "../newRoutes";
+
+import "./app.css";
+
+import Header from '../Header/Header';
+import Footer from '../Others/Footer';
+
 
 function isAuthenticated(){
   return false;
@@ -10,23 +17,24 @@ function isAuthenticated(){
 class App extends Component {
   constructor(props) {
     super(props);
-    console.log(this.props.location);
     this.state = { 
 
      };
   }
 
-  componentDidMount() {
-    console.log(this.props.location)
-  
-  }
+
 
   
   render() {
-    // console.log(window.location.href);
     return (
-      <Switch>
+      <div className="container">
+        <Header />
 
+        <NewRoutes />
+
+        <Footer />
+ 
+{/* 
         {
           routes.map((route, i) => (
           route.isAuthenticated ? (
@@ -41,8 +49,8 @@ class App extends Component {
           // <Route key={i} {...route} />
         ))
         
-        }
-      </Switch>
+        } */}
+      </div>
     );
   }
 }
