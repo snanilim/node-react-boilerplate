@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux'
-import { login } from '../shared/actions/auth';
+import { signup } from '../shared/actions/auth';
 import { facebookLogin, twitterLogin, googleLogin, vkLogin, githubLogin } from '../shared/actions/oauth';
 import Messages from '../Others/Messages';
 
@@ -43,8 +43,8 @@ class Signup extends React.Component {
   render() {
     return (
       <div className="login-container container">
-        <div className="panel">
-          <div className="panel-body">
+        <div className="card">
+          <div className="card-body">
             <Messages messages={this.props.messages}/>
             <form onSubmit={this.handleSignup.bind(this)}>
               <legend>Create an account</legend>
@@ -67,8 +67,8 @@ class Signup extends React.Component {
             </form>
             <div className="hr-title"><span>or</span></div>
             <div className="btn-toolbar text-center">
-        <button onClick={this.handleFacebook.bind(this)} className="btn btn-facebook">Sign in with Facebook</button>
-        <button onClick={this.handleGoogle.bind(this)} className="btn btn-google">Sign in with Google</button>
+        <button onClick={this.handleFacebook.bind(this)} className="btn btn-facebook btn-block">Sign in with Facebook</button>
+        <button onClick={this.handleGoogle.bind(this)} className="btn btn-google btn-block">Sign in with Google</button>
             </div>
           </div>
         </div>

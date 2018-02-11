@@ -2,9 +2,7 @@
 import axios from 'axios';
 
 export function fetchNews(){
-  return (dispatch)=>{
-      
-      console.log('/api/news');
+    return (dispatch)=>{
       axios.get('/api/news', {
           headers: {
               'Content-Type': 'application/json',
@@ -18,6 +16,6 @@ export function fetchNews(){
       }).catch(function(err){
       
       })
-  }
+    }
 }
 

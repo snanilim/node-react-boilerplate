@@ -27,7 +27,7 @@ class App extends Component {
   
   render() {
     return (
-      <div className="container">
+      <div className="container-fluid site-container d-flex h-100 p-3 mx-auto flex-column">
         <Header />
 
         <NewRoutes />

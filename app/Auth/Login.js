@@ -5,6 +5,8 @@ import { login } from '../shared/actions/auth';
 import { facebookLogin, twitterLogin, googleLogin, vkLogin, githubLogin } from '../shared/actions/oauth';
 import Messages from '../Others/Messages';
 
+import './auth.css';
+
 class Login extends React.Component {
   constructor(props) {
     super(props);
@@ -42,9 +44,9 @@ class Login extends React.Component {
 
   render() {
     return (
-      <div className="">
-        <div className="">
-          <div className="">
+      <div className="login-container container">
+        <div className="card">
+          <div className="card-body">
             <Messages messages={this.props.messages}/>
             <form onSubmit={this.handleLogin.bind(this)}>
               <legend>Log In</legend>
@@ -61,8 +63,8 @@ class Login extends React.Component {
             </form>
             <div className="hr-title"><span>or</span></div>
             <div className="btn-toolbar text-center">
-        <button onClick={this.handleFacebook.bind(this)} className="btn btn-facebook">Sign in with Facebook</button>
-        <button onClick={this.handleGoogle.bind(this)} className="btn btn-google">Sign in with Google</button>
+              <button onClick={this.handleFacebook.bind(this)} className="btn btn-facebook">Sign in with Facebook</button>
+              <button onClick={this.handleGoogle.bind(this)} className="btn btn-google">Sign in with Google</button>
             </div>
           </div>
         </div>

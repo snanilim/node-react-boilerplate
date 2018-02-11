@@ -9,7 +9,7 @@ class Home extends Component {
     return (
       <div className="wrapper text-center">
 
-        <div className="container d-flex h-100 p-3 mx-auto flex-column">
+        <div className="container">
 
           <main role="main" className="inner cover">
             <h1 className="cover-heading">Node React Boilerplate</h1>

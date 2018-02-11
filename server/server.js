@@ -67,6 +67,14 @@ app.use(cookieParser());
 app.use(express.static(path.join('public')));
 // app.use(express.static("public"));
 
+
+
+// Controllers
+var userController = require('../app/Auth/userController');
+app.post('/signup', userController.signupPost);
+app.post('/login', userController.loginPost);
+
+
 app.get("/api/news", (req, res) => {
   res.json([
     {
