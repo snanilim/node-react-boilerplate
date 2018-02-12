@@ -1,8 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux'
-import { signup } from '../shared/actions/auth';
-import { facebookLogin, twitterLogin, googleLogin, vkLogin, githubLogin } from '../shared/actions/oauth';
+import { signup } from './authAction';
+import { facebookLogin, twitterLogin, googleLogin, vkLogin, githubLogin } from './oauthAction';
 import Messages from '../Others/Messages';
 
 class Signup extends React.Component {
@@ -17,7 +17,7 @@ class Signup extends React.Component {
 
   handleSignup(event) {
     event.preventDefault();
-    this.props.dispatch(signup(this.state.name, this.state.email, this.state.password));
+    this.props.dispatch(signup(this.state.name, this.state.email, this.state.password, this.props));
   }
 
   handleFacebook() {
@@ -82,8 +82,9 @@ class Signup extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    messages: state.messages
+    messages: state.messages,
+    user: state.auth
   };
 };
 
-export default connect(mapStateToProps)(Signup);
+export default withRouter(connect(mapStateToProps)(Signup));

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux'
-import { login } from '../shared/actions/auth';
-import { facebookLogin, twitterLogin, googleLogin, vkLogin, githubLogin } from '../shared/actions/oauth';
+import { login } from './authAction';
+import { facebookLogin, twitterLogin, googleLogin, vkLogin, githubLogin } from './oauthAction';
 import Messages from '../Others/Messages';
 
 import './auth.css';
@@ -19,7 +19,7 @@ class Login extends React.Component {
 
   handleLogin(event) {
     event.preventDefault();
-    this.props.dispatch(login(this.state.email, this.state.password));
+    this.props.dispatch(login(this.state.email, this.state.password, this.props));
   }
 
   handleFacebook() {

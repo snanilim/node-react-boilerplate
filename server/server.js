@@ -194,10 +194,6 @@ app.use(function(req, res, next) {
 
       var initialData = store.getState();
 
-      console.log('------------------initialData start-----------------');
-      console.log(initialData);
-      console.log('----------------initialData end--------------');
-
       res.render('layouts/main', {
         markup: markup,
         initialData: initialData
