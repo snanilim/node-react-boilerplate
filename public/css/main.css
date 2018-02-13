@@ -17,6 +17,7 @@
 .cover .btn-lg {
   padding: .75rem 1.25rem;
   font-weight: 700;
+  
 }
 
 
@@ -25,14 +26,6 @@
  */
 .mastfoot {
   color: rgba(255, 255, 255, .5);
-}
-.newslist {
-  background-color: #f6f6ef;
-}
-
-.header {
-  background-color: #6b32e1;
-  padding: 3px;
 }
 
 .login-container {

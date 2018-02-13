@@ -67,7 +67,29 @@ app.use(cookieParser());
 app.use(express.static(path.join('public')));
 // app.use(express.static("public"));
 
+// Models
+import User from '../app/Auth/userModel';
 
+app.use(function(req, res, next) {
+  req.isAuthenticated = function() {
+    var token = (req.headers.authorization && req.headers.authorization.split(' ')[1]) || req.cookies.token;
+    try {
+      return jwt.verify(token, process.env.TOKEN_SECRET);
+    } catch (err) {
+      return false;
+    }
+  };
+
+  if (req.isAuthenticated()) {
+    var payload = req.isAuthenticated();
+    User.findById(payload.sub, function(err, user) {
+      req.user = user;
+      next();
+    });
+  } else {
+    next();
+  }
+});
 
 // Controllers
 var userController = require('../app/Auth/userController');
@@ -75,99 +97,16 @@ app.post('/signup', userController.signupPost);
 app.post('/login', userController.loginPost);
 
 
-app.get("/api/news", (req, res) => {
-  res.json([
-    {
-      id: 1,
-      upvotes: 130,
-      title: "Fianto Duri, the complete tutorial",
-      author: "RubeusH",
-      date: new Date("2017-04-14T15:30:00.000Z")
-    },
-    {
-      id: 2,
-      upvotes: 126,
-      title: "Ordinary Wizarding Levels study guide",
-      author: "BathBabb",
-      date: new Date("2017-04-14T15:30:00.000Z")
-    },
-    {
-      id: 3,
-      upvotes: 114,
-      title: "Is muggle-baiting ever acceptable?",
-      author: "Falco",
-      date: new Date("2017-04-14T15:30:00.000Z")
-    },
-    {
-      id: 4,
-      upvotes: 97,
-      title: "Untransfiguration classes to become compulsory at Hogwarts",
-      author: "Baddock",
-      date: new Date("2017-04-14T15:30:00.000Z")
-    },
-    {
-      id: 5,
-      upvotes: 85,
-      title: "Cracking the Aurologist Interview ",
-      author: "Hetty",
-      date: new Date("2017-04-14T15:30:00.000Z")
-    },
-    {
-      id: 6,
-      upvotes: 74,
-      title: "Conserving waterplants cheatsheet.",
-      author: "Otto",
-      date: new Date("2017-04-14T15:30:00.000Z")
-    },
-    {
-      id: 7,
-      upvotes: 66,
-      title: "The Pragmatic Dragon Feeder",
-      author: "Baruffio",
-      date: new Date("2017-04-14T15:30:00.000Z")
-    },
-    {
-      id: 8,
-      upvotes: 50,
-      title: "The complete quidditch statistics",
-      author: "Hbeery",
-      date: new Date("2017-04-14T15:30:00.000Z")
-    },
-    {
-      id: 9,
-      upvotes: 34,
-      title: "Cracking the Aurologist Interview ",
-      author: "Marcusb",
-      date: new Date("2017-04-14T15:30:00.000Z")
-    },
-    {
-      id: 10,
-      upvotes: 29,
-      title: "Could wizards prevent WW3?",
-      author: "Cuthbert",
-      date: new Date("2017-04-14T15:30:00.000Z")
-    },
-    {
-      id: 11,
-      upvotes: 20,
-      title: "ASK WN: What do you use to digitalize your scrolls?",
-      author: "Alphard",
-      date: new Date("2017-04-14T15:30:00.000Z")
-    },
-    {
-      id: 12,
-      upvotes: 16,
-      title: "Show WN: Wand-Extinguishing Protection",
-      author: "Humphrey22",
-      date: new Date("2017-04-14T15:30:00.000Z")
-    }
-  ]);
-});
+
+
+
+
+
 
 app.use(function(req, res, next) {
-
   var initialState = {
-    messages: {msg:"messagesssssss"}
+    auth: { token: req.cookies.token, user: req.user },
+    messages: {}
   };
 
   var store = configureStore(initialState);
@@ -181,9 +120,7 @@ app.use(function(req, res, next) {
 
   Promise.all(promises)
     .then(() => {
-      const context = {
-        messages: {msg:"message"}
-      };
+      const context = {};
       const markup = renderToString(
         <Provider store={store}>
           <StaticRouter location={req.url} context={context}>

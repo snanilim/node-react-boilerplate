@@ -10,6 +10,7 @@ export default function configureStore(initialState) {
     rootReducer,
     initialState,
     applyMiddleware(thunk, promise, logger)
+    
   );
 
   return store;

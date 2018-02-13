@@ -26,8 +26,7 @@ export function login(email, password, props) {
           dispatch({
             type: 'LOGIN_SUCCESS',
             token: json.token,
-            user: json.user,
-            redirect: true
+            user: json.user
           });
           cookies.set('token', json.token, { expires: moment().add(1, 'hour').toDate() });
           props.history.push('/account')
@@ -79,7 +78,7 @@ export function signup(name, email, password, props) {
 }
 
 export function logout() {
-  cookie.remove('token');
+  cookies.remove('token');
   <Redirect to="/"/>
   return {
     type: 'LOGOUT_SUCCESS'

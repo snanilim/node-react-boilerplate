@@ -34,22 +34,6 @@ class App extends Component {
 
         <Footer />
  
-{/* 
-        {
-          routes.map((route, i) => (
-          route.isAuthenticated ? (
-            <Route key={i} {...route} />
-          ) : (
-            <Redirect  key={i} to={{
-              pathname: '/login',
-              state: { }
-            }}/>
-          )
-          
-          // <Route key={i} {...route} />
-        ))
-        
-        } */}
       </div>
     );
   }
