@@ -11,14 +11,6 @@ class Header extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          email: props.user.email,
-          name: props.user.name,
-          gender: props.user.gender,
-          location: props.user.location,
-          website: props.user.website,
-          gravatar: props.user.gravatar,
-          password: '',
-          confirm: ''
         };
     }
 
