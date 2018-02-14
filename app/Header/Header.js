@@ -22,8 +22,8 @@ class Header extends Component {
     const rightNav = this.props.token ? (
         <nav className="nav nav-masthead justify-content-center">
             <Link to="/" className="nav-link">Home</Link>
-            <Link to="/account">Account</Link>
-            <a href="#" onClick={this.handleLogout.bind(this)}>Logout</a>
+            <Link to="/account" className="nav-link">Account</Link>
+            <a href="#" className="nav-link" onClick={this.handleLogout.bind(this)}>Logout</a>
         </nav>
     ) : (
         <nav className="nav nav-masthead justify-content-center">

@@ -26,7 +26,8 @@ export function login(email, password, props) {
           dispatch({
             type: 'LOGIN_SUCCESS',
             token: json.token,
-            user: json.user
+            user: json.user,
+            messages: Array.isArray(json.msg) ? json.msg : [json.msg]
           });
           cookies.set('token', json.token, { expires: moment().add(1, 'hour').toDate() });
           props.history.push('/account')
@@ -59,7 +60,8 @@ export function signup(name, email, password, props) {
           dispatch({
             type: 'SIGNUP_SUCCESS',
             token: json.token,
-            user: json.user
+            user: json.user,
+            messages: Array.isArray(json.msg) ? json.msg : [json.msg]
           });
 
           cookies.set('token', json.token, { expires: moment().add(1, 'hour').toDate() });
