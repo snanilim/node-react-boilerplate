@@ -28,15 +28,17 @@ class Header extends Component {
     }    
   render() {
     const rightNav = this.props.token ? (
-        <div>
-        <Link to="/account">Account</Link>
-        <a href="#" onClick={this.handleLogout.bind(this)}>Logout</a>
-        </div>
+        <nav className="nav nav-masthead justify-content-center">
+            <Link to="/" className="nav-link">Home</Link>
+            <Link to="/account">Account</Link>
+            <a href="#" onClick={this.handleLogout.bind(this)}>Logout</a>
+        </nav>
     ) : (
-        <div>
-        <Link to="/login" className="nav-link">Login</Link>
-        <Link to="/signup" className="nav-link">Sign Up</Link>
-        </div>
+        <nav className="nav nav-masthead justify-content-center">
+            <Link to="/" className="nav-link">Home</Link>
+            <Link to="/login" className="nav-link">Login</Link>
+            <Link to="/signup" className="nav-link">Sign Up</Link>
+        </nav>
     )
     return (
         <header className="masthead mb-auto">
@@ -44,10 +46,8 @@ class Header extends Component {
         <a className=" masthead-brand navbar-brand" href="#">
             <img src="/img/logo.png" width="45" alt="" />
         </a>
-            <nav className="nav nav-masthead justify-content-center">
-            <Link to="/" className="nav-link">Home</Link>
-            {rightNav}
-            </nav>
+        {rightNav}
+
         </div>
         </header>
 
