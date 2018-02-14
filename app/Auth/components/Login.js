@@ -45,31 +45,31 @@ class Login extends React.Component {
   render() {
     return (
       <div className="login-container container">
-        <div className="card">
+        <div className="card" style={{padding: '30px'}}>
           <div className="card-body">
             <Messages messages={this.props.messages}/>
             <form onSubmit={this.handleLogin.bind(this)}>
-              <legend>Log In</legend>
+              <p className="h2 text-center">Log In</p>
               <div className="form-group">
-                <label htmlFor="email">Email</label>
-                <input type="email" name="email" id="email" placeholder="Email" autoFocus className="form-control" value={this.state.email} onChange={this.handleChange.bind(this)}/>
+                <input type="email" name="email" id="email" placeholder="Email" autoFocus className="form-control form-control-lg" value={this.state.email} onChange={this.handleChange.bind(this)}/>
               </div>
               <div className="form-group">
-                <label htmlFor="password">Password</label>
-                <input type="password" name="password" id="password" placeholder="Password" className="form-control" value={this.state.password} onChange={this.handleChange.bind(this)}/>
+                <input type="password" name="password" id="password" placeholder="Password" className="form-control form-control-lg" value={this.state.password} onChange={this.handleChange.bind(this)}/>
               </div>
-              <div className="form-group"><Link to="/forgot"><strong>Forgot your password?</strong></Link></div>
-              <button type="submit" className="btn btn-success">Log in</button>
+              
+              <button type="submit" className="btn btn-success btn-block btn-lg">Log in</button>
+
+              <div className="form-group text-center"><Link to="/forgot"><small>Forgot your password?</small></Link></div>
             </form>
-            <div className="hr-title"><span>or</span></div>
-            <div className="btn-toolbar text-center">
+            <div className="hr-title text-center"><span>or</span></div>
+            <div style={{width: '376px', margin:'0 auto'}} className="btn-group btn-toolbar text-center">
               <button onClick={this.handleFacebook.bind(this)} className="btn btn-facebook">Sign in with Facebook</button>
               <button onClick={this.handleGoogle.bind(this)} className="btn btn-google">Sign in with Google</button>
             </div>
           </div>
         </div>
-        <p className="text-center">
-          Don't have an account? <Link to="/signup"><strong>Sign up</strong></Link>
+        <p className="text-center mastfoot">
+        <small>Don't have an account?</small> <Link to="/signup">Sign up</Link>
         </p>
       </div>
     );

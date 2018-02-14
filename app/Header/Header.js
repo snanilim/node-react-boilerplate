@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
-import { Link, withRouter } from "react-router-dom";
+import { NavLink, Link, withRouter } from "react-router-dom";
 import { logout } from "../Auth/authAction";
 
 
@@ -21,15 +21,15 @@ class Header extends Component {
   render() {
     const rightNav = this.props.token ? (
         <nav className="nav nav-masthead justify-content-center">
-            <Link to="/" className="nav-link">Home</Link>
-            <Link to="/account" className="nav-link">Account</Link>
+            <NavLink exact to="/" activeClassName="active" className="nav-link">Home</NavLink>
+            <NavLink to="/account" activeClassName="active" className="nav-link">Account</NavLink>
             <a href="#" className="nav-link" onClick={this.handleLogout.bind(this)}>Logout</a>
         </nav>
     ) : (
         <nav className="nav nav-masthead justify-content-center">
-            <Link to="/" className="nav-link">Home</Link>
-            <Link to="/login" className="nav-link">Login</Link>
-            <Link to="/signup" className="nav-link">Sign Up</Link>
+            <NavLink exact to="/" activeClassName="active" className="nav-link">Home</NavLink>
+            <NavLink to="/login" activeClassName="active" className="nav-link">Login</NavLink>
+            <NavLink to="/signup" activeClassName="active" className="nav-link">Sign Up</NavLink>
         </nav>
     )
     return (

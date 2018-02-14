@@ -53,7 +53,7 @@ export function ensureAuthenticated (req, res, next) {
         if (!isMatch) {
           return res.status(401).send({ msg: 'Invalid email or password' });
         }
-        const msg = { msg: 'Login Success' }
+        const msg = { msg: 'Well Done! You successfully logged in to this website 🤗' }
         res.send({ token: generateToken(user), user: user.toJSON(), msg:msg });
       });
     });
@@ -85,7 +85,7 @@ export function signupPost (req, res, next) {
       password: req.body.password
     });
     user.save(function(err) {
-    const msg = { msg: 'SignUp Success' }
+    const msg = { msg: 'Well Done! You successfully signup in to this website 🤗' }
     res.send({ token: generateToken(user), user: user,  msg:msg });
     });
   });
