@@ -2,7 +2,10 @@ import url from 'url';
 import qs from 'querystring';
 import moment from 'moment';
 import cookie from 'react-cookie';
+import Cookies from 'universal-cookie';
 import { browserHistory } from 'react-router';
+
+const cookies = new Cookies();
 
 // Sign in with Facebook
 export function facebookLogin() {
@@ -222,8 +225,8 @@ function signIn({ token, user, window, interval, dispatch }) {
       token: token,
       user: user
     });
-    cookie.save('token', token, { expires: moment().add(1, 'hour').toDate() });
-    browserHistory.push('/');
+    cookies.set('token', token, { expires: moment().add(1, 'hour').toDate() });
+    props.history.push('/account')
     resolve({ window: window, interval: interval });
   });
 
