@@ -95,6 +95,10 @@ app.use(function(req, res, next) {
 var userController = require('../app/Auth/userController');
 app.post('/signup', userController.signupPost);
 app.post('/login', userController.loginPost);
+app.post('/auth/facebook', userController.authFacebook);
+app.get('/auth/facebook/callback', userController.authFacebookCallback);
+app.post('/auth/google', userController.authGoogle);
+app.get('/auth/google/callback', userController.authGoogleCallback);
 
 
 
