@@ -8,7 +8,7 @@ import { browserHistory } from 'react-router';
 const cookies = new Cookies();
 
 // Sign in with Facebook
-export function facebookLogin() {
+export function facebookLogin(props) {
   const facebook = {
     url: 'http://localhost:3000/auth/facebook',
     clientId: '980220002068787',
@@ -20,7 +20,7 @@ export function facebookLogin() {
   };
 
   return (dispatch) => {
-    oauth2(facebook, dispatch)
+    oauth2(facebook, dispatch, props)
       .then(openPopup)
       .then(pollPopup)
       .then(exchangeCodeForToken)
@@ -30,7 +30,7 @@ export function facebookLogin() {
 }
 
 // Sign in with Google
-export function googleLogin() {
+export function googleLogin(props) {
   const google = {
     url: 'http://localhost:3000/auth/google',
     clientId: '814958990796-p1centjebv1k0htp3am05tfg5k10nl0k.apps.googleusercontent.com',
@@ -42,7 +42,7 @@ export function googleLogin() {
   };
 
   return (dispatch) => {
-    oauth2(google, dispatch)
+    oauth2(google, dispatch, props)
       .then(openPopup)
       .then(pollPopup)
       .then(exchangeCodeForToken)
@@ -89,7 +89,7 @@ export function unlink(provider) {
   }
 }
 
-function oauth2(config, dispatch) {
+function oauth2(config, dispatch, props) {
   return new Promise((resolve, reject) => {
     const params = {
       client_id: config.clientId,
@@ -99,7 +99,7 @@ function oauth2(config, dispatch) {
       response_type: 'code'
     };
     const url = config.authorizationUrl + '?' + qs.stringify(params);
-    resolve({ url: url, config: config, dispatch: dispatch });
+    resolve({ url: url, config: config, dispatch: dispatch, props:props });
   });
 }
 
@@ -109,7 +109,7 @@ function oauth1(config, dispatch) {
   });
 }
 
-function openPopup({ url, config, dispatch }) {
+function openPopup({ url, config, dispatch, props }) {
   return new Promise((resolve, reject) => {
     const width = config.width || 500;
     const height = config.height || 500;
@@ -124,8 +124,7 @@ function openPopup({ url, config, dispatch }) {
     if (url === 'about:blank') {
       popup.document.body.innerHTML = 'Loading...';
     }
-
-    resolve({ window: popup, config: config, dispatch: dispatch });
+    resolve({ window: popup, config: config, dispatch: dispatch, props: props });
   });
 }
 
@@ -147,7 +146,7 @@ function getRequestToken({ window, config, dispatch }) {
   });
 }
 
-function pollPopup({ window, config, requestToken, dispatch }) {
+function pollPopup({ window, config, requestToken, dispatch, props }) {
   return new Promise((resolve, reject) => {
     const redirectUri = url.parse(config.redirectUri);
     const redirectUriPath = redirectUri.host + redirectUri.pathname;
@@ -174,7 +173,7 @@ function pollPopup({ window, config, requestToken, dispatch }) {
                 messages: [{ msg: params.error }]
               });
             } else {
-              resolve({ oauthData: params, config: config, window: window, interval: polling, dispatch: dispatch });
+              resolve({ oauthData: params, config: config, window: window, interval: polling, dispatch: dispatch, props: props });
             }
           } else {
             dispatch({
@@ -191,7 +190,7 @@ function pollPopup({ window, config, requestToken, dispatch }) {
   });
 }
 
-function exchangeCodeForToken({ oauthData, config, window, interval, dispatch }) {
+function exchangeCodeForToken({ oauthData, config, window, interval, dispatch, props }) {
   return new Promise((resolve, reject) => {
     const data = Object.assign({}, oauthData, config);
 
@@ -203,7 +202,7 @@ function exchangeCodeForToken({ oauthData, config, window, interval, dispatch })
     }).then((response) => {
       if (response.ok) {
         return response.json().then((json) => {
-          resolve({ token: json.token, user: json.user, window: window, interval: interval, dispatch: dispatch });
+          resolve({ token: json.token, user: json.user, window: window, interval: interval, dispatch: dispatch, props: props });
         });
       } else {
         return response.json().then((json) => {
@@ -218,14 +217,14 @@ function exchangeCodeForToken({ oauthData, config, window, interval, dispatch })
   });
 }
 
-function signIn({ token, user, window, interval, dispatch }) {
+function signIn({ token, user, window, interval, dispatch, props }) {
   return new Promise((resolve, reject) => {
     dispatch({
       type: 'OAUTH_SUCCESS',
       token: token,
       user: user
     });
-    cookies.set('token', token, { expires: moment().add(1, 'hour').toDate() });
+    cookies.set('token', token, { expires: moment().add(1, 'hour').toDate() })
     props.history.push('/account')
     resolve({ window: window, interval: interval });
   });

@@ -7166,7 +7166,7 @@ module.exports = defaults;
 var cookies = new __WEBPACK_IMPORTED_MODULE_4_universal_cookie___default.a();
 
 // Sign in with Facebook
-function facebookLogin() {
+function facebookLogin(props) {
   var facebook = {
     url: 'http://localhost:3000/auth/facebook',
     clientId: '980220002068787',
@@ -7178,12 +7178,12 @@ function facebookLogin() {
   };
 
   return function (dispatch) {
-    oauth2(facebook, dispatch).then(openPopup).then(pollPopup).then(exchangeCodeForToken).then(signIn).then(closePopup);
+    oauth2(facebook, dispatch, props).then(openPopup).then(pollPopup).then(exchangeCodeForToken).then(signIn).then(closePopup);
   };
 }
 
 // Sign in with Google
-function googleLogin() {
+function googleLogin(props) {
   var google = {
     url: 'http://localhost:3000/auth/google',
     clientId: '814958990796-p1centjebv1k0htp3am05tfg5k10nl0k.apps.googleusercontent.com',
@@ -7195,7 +7195,7 @@ function googleLogin() {
   };
 
   return function (dispatch) {
-    oauth2(google, dispatch).then(openPopup).then(pollPopup).then(exchangeCodeForToken).then(signIn).then(closePopup);
+    oauth2(google, dispatch, props).then(openPopup).then(pollPopup).then(exchangeCodeForToken).then(signIn).then(closePopup);
   };
 }
 
@@ -7237,7 +7237,7 @@ function unlink(provider) {
   };
 }
 
-function oauth2(config, dispatch) {
+function oauth2(config, dispatch, props) {
   return new Promise(function (resolve, reject) {
     var params = {
       client_id: config.clientId,
@@ -7247,7 +7247,7 @@ function oauth2(config, dispatch) {
       response_type: 'code'
     };
     var url = config.authorizationUrl + '?' + __WEBPACK_IMPORTED_MODULE_1_querystring___default.a.stringify(params);
-    resolve({ url: url, config: config, dispatch: dispatch });
+    resolve({ url: url, config: config, dispatch: dispatch, props: props });
   });
 }
 
@@ -7260,7 +7260,8 @@ function oauth1(config, dispatch) {
 function openPopup(_ref) {
   var url = _ref.url,
       config = _ref.config,
-      dispatch = _ref.dispatch;
+      dispatch = _ref.dispatch,
+      props = _ref.props;
 
   return new Promise(function (resolve, reject) {
     var width = config.width || 500;
@@ -7276,8 +7277,7 @@ function openPopup(_ref) {
     if (url === 'about:blank') {
       popup.document.body.innerHTML = 'Loading...';
     }
-
-    resolve({ window: popup, config: config, dispatch: dispatch });
+    resolve({ window: popup, config: config, dispatch: dispatch, props: props });
   });
 }
 
@@ -7307,7 +7307,8 @@ function pollPopup(_ref3) {
   var window = _ref3.window,
       config = _ref3.config,
       requestToken = _ref3.requestToken,
-      dispatch = _ref3.dispatch;
+      dispatch = _ref3.dispatch,
+      props = _ref3.props;
 
   return new Promise(function (resolve, reject) {
     var redirectUri = __WEBPACK_IMPORTED_MODULE_0_url___default.a.parse(config.redirectUri);
@@ -7335,7 +7336,7 @@ function pollPopup(_ref3) {
                 messages: [{ msg: params.error }]
               });
             } else {
-              resolve({ oauthData: params, config: config, window: window, interval: polling, dispatch: dispatch });
+              resolve({ oauthData: params, config: config, window: window, interval: polling, dispatch: dispatch, props: props });
             }
           } else {
             dispatch({
@@ -7357,7 +7358,8 @@ function exchangeCodeForToken(_ref4) {
       config = _ref4.config,
       window = _ref4.window,
       interval = _ref4.interval,
-      dispatch = _ref4.dispatch;
+      dispatch = _ref4.dispatch,
+      props = _ref4.props;
 
   return new Promise(function (resolve, reject) {
     var data = Object.assign({}, oauthData, config);
@@ -7370,7 +7372,7 @@ function exchangeCodeForToken(_ref4) {
     }).then(function (response) {
       if (response.ok) {
         return response.json().then(function (json) {
-          resolve({ token: json.token, user: json.user, window: window, interval: interval, dispatch: dispatch });
+          resolve({ token: json.token, user: json.user, window: window, interval: interval, dispatch: dispatch, props: props });
         });
       } else {
         return response.json().then(function (json) {
@@ -7390,7 +7392,8 @@ function signIn(_ref5) {
       user = _ref5.user,
       window = _ref5.window,
       interval = _ref5.interval,
-      dispatch = _ref5.dispatch;
+      dispatch = _ref5.dispatch,
+      props = _ref5.props;
 
   return new Promise(function (resolve, reject) {
     dispatch({
@@ -48613,7 +48616,7 @@ var Signup = function (_React$Component) {
   }, {
     key: 'handleFacebook',
     value: function handleFacebook() {
-      this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_4__oauthAction__["a" /* facebookLogin */])());
+      this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_4__oauthAction__["a" /* facebookLogin */])(this.props));
     }
   }, {
     key: 'handleTwitter',
@@ -48623,7 +48626,7 @@ var Signup = function (_React$Component) {
   }, {
     key: 'handleGoogle',
     value: function handleGoogle() {
-      this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_4__oauthAction__["c" /* googleLogin */])());
+      this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_4__oauthAction__["c" /* googleLogin */])(this.props));
     }
   }, {
     key: 'handleVk',

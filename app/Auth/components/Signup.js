@@ -21,7 +21,7 @@ class Signup extends React.Component {
   }
 
   handleFacebook() {
-    this.props.dispatch(facebookLogin())
+    this.props.dispatch(facebookLogin(this.props))
   }
 
   handleTwitter() {
@@ -29,7 +29,7 @@ class Signup extends React.Component {
   }
 
   handleGoogle() {
-    this.props.dispatch(googleLogin())
+    this.props.dispatch(googleLogin(this.props))
   }
 
   handleVk() {
