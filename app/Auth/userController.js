@@ -425,3 +425,19 @@ export function authGoogle (req, res) {
 export function authGoogleCallback (req, res) {
   res.render('loading', { layout: false });
 };
+
+/**
+ * GET /login-per-user/:id
+ * login-per-user/:id
+ */
+
+ export function loginPerUser(req, res){
+  User.findOne({ email: req.params.id }, function(err, user) {
+    if(err){
+      console.log(err);
+    }else{
+      console.log(user);
+      res.send(user);
+    }
+  });
+ }

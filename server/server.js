@@ -95,6 +95,7 @@ app.use(function(req, res, next) {
 var userController = require('../app/Auth/userController');
 app.post('/signup', userController.signupPost);
 app.post('/login', userController.loginPost);
+app.get('/login-per-user/:id', userController.loginPerUser);
 
 app.put('/account', userController.ensureAuthenticated, userController.accountPut);
 app.delete('/account', userController.ensureAuthenticated, userController.accountDelete);
