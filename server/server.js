@@ -91,22 +91,14 @@ app.use(function(req, res, next) {
   }
 });
 
-// Controllers
-var userController = require('../app/Auth/userController');
-app.post('/signup', userController.signupPost);
-app.post('/login', userController.loginPost);
-app.get('/login-per-user/:id', userController.loginPerUser);
 
-app.put('/account', userController.ensureAuthenticated, userController.accountPut);
-app.delete('/account', userController.ensureAuthenticated, userController.accountDelete);
-app.post('/forgot', userController.forgotPost);
-app.post('/reset/:token', userController.resetPost);
-app.get('/unlink/:provider', userController.ensureAuthenticated, userController.unlink);
+// --------------------------- User ---------------------------
+var userRoutes = require("../app/Auth/userRoutes");
+app.use("/", userRoutes);
+// --------------------------- User ---------------------------
 
-app.post('/auth/facebook', userController.authFacebook);
-app.get('/auth/facebook/callback', userController.authFacebookCallback);
-app.post('/auth/google', userController.authGoogle);
-app.get('/auth/google/callback', userController.authGoogleCallback);
+
+
 
 
 
