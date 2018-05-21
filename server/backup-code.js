@@ -44,3 +44,26 @@
         ))
         
         } */}
+
+// Connect with redis 
+// var redisClient = require('redis').createClient;
+// var redis = redisClient(6379, 'localhost');
+
+    // redis.get(payload.sub, function (err, redisUser) {
+    //   if(err){
+    //     console.log(err);
+    //   }else if(redisUser){
+    //     var redUser = JSON.parse(redisUser);
+    //     console.log(typeof redUser);
+    //     req.user = redUser;
+    //     next();
+    //   }else{
+    //     User.findById(payload.sub, function(err, user) {
+    //       req.user = user;
+    //       redis.set(payload.sub, JSON.stringify(user), function () {
+    //         next();
+    //       });
+          
+    //     });
+    //   }
+    // })
