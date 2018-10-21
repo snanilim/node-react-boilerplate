@@ -49061,7 +49061,7 @@ var Profile = function (_React$Component) {
                     },
                     __self: this
                   },
-                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'email', name: 'email', id: 'email', className: 'form-control', value: this.state.email, onChange: this.handleChange.bind(this), __source: {
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'email', autoComplete: 'off', name: 'email', id: 'email', className: 'form-control', value: this.state.email, onChange: this.handleChange.bind(this), __source: {
                       fileName: _jsxFileName,
                       lineNumber: 61
                     },
@@ -49095,7 +49095,7 @@ var Profile = function (_React$Component) {
                     },
                     __self: this
                   },
-                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', name: 'name', id: 'name', className: 'form-control', value: this.state.name, onChange: this.handleChange.bind(this), __source: {
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', autoComplete: 'off', name: 'name', id: 'name', className: 'form-control', value: this.state.name, onChange: this.handleChange.bind(this), __source: {
                       fileName: _jsxFileName,
                       lineNumber: 67
                     },
@@ -49137,7 +49137,7 @@ var Profile = function (_React$Component) {
                       },
                       __self: this
                     },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'radio', name: 'gender', value: 'male', checked: this.state.gender === 'male', onChange: this.handleChange.bind(this), __source: {
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'radio', autoComplete: 'off', name: 'gender', value: 'male', checked: this.state.gender === 'male', onChange: this.handleChange.bind(this), __source: {
                         fileName: _jsxFileName,
                         lineNumber: 74
                       },
@@ -49163,7 +49163,7 @@ var Profile = function (_React$Component) {
                       },
                       __self: this
                     },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'radio', name: 'gender', value: 'female', checked: this.state.gender === 'female', onChange: this.handleChange.bind(this), __source: {
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'radio', autoComplete: 'off', name: 'gender', value: 'female', checked: this.state.gender === 'female', onChange: this.handleChange.bind(this), __source: {
                         fileName: _jsxFileName,
                         lineNumber: 77
                       },

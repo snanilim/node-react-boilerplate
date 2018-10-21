@@ -58,23 +58,23 @@ class Profile extends React.Component {
               <div className="form-group">
                 <label htmlFor="email" className="col-sm-3">Email</label>
                 <div className="col-sm-7">
-                  <input type="email" name="email" id="email" className="form-control" value={this.state.email} onChange={this.handleChange.bind(this)}/>
+                  <input type="email" autoComplete="off" name="email" id="email" className="form-control" value={this.state.email} onChange={this.handleChange.bind(this)}/>
                 </div>
               </div>
               <div className="form-group">
                 <label htmlFor="name" className="col-sm-3">Name</label>
                 <div className="col-sm-7">
-                  <input type="text" name="name" id="name" className="form-control" value={this.state.name} onChange={this.handleChange.bind(this)}/>
+                  <input type="text" autoComplete="off" name="name" id="name" className="form-control" value={this.state.name} onChange={this.handleChange.bind(this)}/>
                 </div>
               </div>
               <div className="form-group">
                 <label className="col-sm-3">Gender</label>
                 <div className="col-sm-4">
                   <label className="radio-inline radio col-sm-4">
-                    <input type="radio" name="gender" value="male" checked={this.state.gender === 'male'} onChange={this.handleChange.bind(this)}/><span>Male</span>
+                    <input type="radio" autoComplete="off" name="gender" value="male" checked={this.state.gender === 'male'} onChange={this.handleChange.bind(this)}/><span>Male</span>
                   </label>
                   <label className="radio-inline col-sm-4">
-                    <input type="radio" name="gender" value="female" checked={this.state.gender === 'female'} onChange={this.handleChange.bind(this)}/><span>Female</span>
+                    <input type="radio" autoComplete="off" name="gender" value="female" checked={this.state.gender === 'female'} onChange={this.handleChange.bind(this)}/><span>Female</span>
                   </label>
                 </div>
               </div>

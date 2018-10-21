@@ -7,6 +7,10 @@ import request from 'request';
 import qs from 'querystring';
 import User from './userModel';
 
+// Connect with redis 
+var redisClient = require('redis').createClient;
+var redis = redisClient(6379, 'localhost');
+
 function generateToken(user) {
   var payload = {
     iss: 'my.domain.com',
@@ -112,7 +116,9 @@ export function accountPut (req, res, next) {
     return res.status(400).send(errors);
   }
 
-  User.findById(req.user.id, function(err, user) {
+  // console.log(req.user);
+
+  User.findById(req.user._id, function(err, user) {
     if ('password' in req.body) {
       user.password = req.body.password;
     } else {
@@ -122,13 +128,17 @@ export function accountPut (req, res, next) {
       user.location = req.body.location;
       user.website = req.body.website;
     }
-    user.save(function(err) {
+    user.save(function(err, user) {
       if ('password' in req.body) {
         res.send({ msg: 'Your password has been changed.' });
       } else if (err && err.code === 11000) {
         res.status(409).send({ msg: 'The email address you have entered is already associated with another account.' });
       } else {
-        res.send({ user: user, msg: 'Your profile information has been updated.' });
+        redis.set(req.user._id, JSON.stringify(user), function (err) {
+            if (err) callback(err);
+            else res.send({ user: user, msg: 'Your profile information has been updated.' });
+        });
+        
       }
     });
   });

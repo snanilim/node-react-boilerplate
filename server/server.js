@@ -23,10 +23,20 @@ import configureStore from "../app/shared/store/configureStore";
 import App from "../app/shared/App";
 import "source-map-support/register";
 
+// Connect with redis 
+var redisClient = require('redis').createClient;
+var redis = redisClient(6379, 'localhost');
+
+
+
+
+
 // Load environment variables from .env file
 dotenv.load();
 
 const app = express();
+
+
 
 
 // Connect With Mongodb
@@ -58,12 +68,12 @@ app.use(cors());
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 app.set('port', process.env.PORT || 3000);
-app.use(compression());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(expressValidator());
 app.use(cookieParser());
+app.use(compression());
 app.use(express.static(path.join('public')));
 // app.use(express.static("public"));
 
@@ -82,10 +92,32 @@ app.use(function(req, res, next) {
 
   if (req.isAuthenticated()) {
     var payload = req.isAuthenticated();
-    User.findById(payload.sub, function(err, user) {
-      req.user = user;
-      next();
-    });
+
+    // User.findById(payload.sub, function(err, user) {
+    //   req.user = user;
+    //   next();
+      
+    // });
+    
+    redis.get(payload.sub, function (err, redisUser) {
+      if(err){
+        console.log(err);
+      }else if(redisUser){
+        var redUser = JSON.parse(redisUser);
+        console.log(typeof redUser);
+        req.user = redUser;
+        next();
+      }else{
+        User.findById(payload.sub, function(err, user) {
+          req.user = user;
+          redis.set(payload.sub, JSON.stringify(user), function () {
+            next();
+          });
+          
+        });
+      }
+    })
+
   } else {
     next();
   }
